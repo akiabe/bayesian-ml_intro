@@ -35,7 +35,16 @@ plt.title("Observation Data")
 plt.show()
 
 ### prior distribution ###
-#a = 1.0
+alpha = np.array([1.0, 1.0, 1.0])
+point_vec = np.arange(0.0, 1.001, 0.002)
+x, y, z = np.meshgrid(point_vec, point_vec, point_vec)
+pi = np.array([
+    list(x.flatten()),
+    list(y.flatten()),
+    list(z.flatten())
+])
+print(pi)
+
 #b = 1.0
 #prior_mu = np.arange(0.0, 1.001, 0.001)
 #prior = stats.beta.pdf(x=prior_mu, a=a, b=b)
