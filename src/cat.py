@@ -27,28 +27,31 @@ sum_of_X = np.sum(X, axis=0)
 print(f"X: {X[:5]}")
 print(f"sum of X: {sum_of_X}")
 
-plt.bar(x=k, height=sum_of_X)
-plt.xlabel("k")
-plt.ylabel("count")
-plt.xticks(ticks=k, labels=k)
-plt.title("Observation Data")
-plt.show()
+#plt.bar(x=k, height=sum_of_X)
+#plt.xlabel("k")
+#plt.ylabel("count")
+#plt.xticks(ticks=k, labels=k)
+#plt.title("Observation Data")
+#plt.show()
 
 ### prior distribution ###
 alpha = np.array([1.0, 1.0, 1.0])
-point_vec = np.arange(0.0, 1.001, 0.002)
+
+point_vec = np.arange(0.0, 1.001, 0.02)
 x, y, z = np.meshgrid(point_vec, point_vec, point_vec)
 pi = np.array([
     list(x.flatten()),
     list(y.flatten()),
     list(z.flatten())
-])
-print(pi)
+]).T
+pi = pi[1:,:]
+pi /= np.sum(pi, axis=1, keepdims=True)
+pi = np.unique(pi, axis=0)
 
-#b = 1.0
-#prior_mu = np.arange(0.0, 1.001, 0.001)
-#prior = stats.beta.pdf(x=prior_mu, a=a, b=b)
-#print(prior)
+prior = np.array([
+    stats.dirichlet.pdf(x=pi[i], alpha=alpha) for i in range(len(pi))
+])
+print(prior)
 
 #plt.plot(prior_mu, prior)
 #plt.xlabel("mu")
