@@ -44,7 +44,7 @@ pi = np.array([
     list(y.flatten()),
     list(z.flatten())
 ]).T
-pi = pi[1:,:]
+pi = pi[1:, :]
 pi /= np.sum(pi, axis=1, keepdims=True)
 pi = np.unique(pi, axis=0)
 
@@ -53,12 +53,17 @@ prior = np.array([
 ])
 print(prior)
 
-#plt.plot(prior_mu, prior)
-#plt.xlabel("mu")
-#plt.ylabel("density")
-#plt.xticks(ticks=x, labels=x)
-#plt.title("Beta Distribution")
-#plt.show()
+tri_x = pi[:, 1] + pi[:, 2] / 2
+tri_y = np.sqrt(3) * pi[:, 2] / 2
+plt.scatter(tri_x, tri_y, cmap="jet")
+plt.xlabel("pi_1, pi_2")
+plt.ylabel("pi_1, pi_2")
+plt.xticks(ticks=[0.0, 1.0], labels=["(1, 0, 0)", "(0, 1, 0)"])
+plt.yticks(ticks=[0.0, 0.87], labels=["(1, 0, 0)", "(0, 0, 1)"])
+plt.title("Dirichlet Distribution")
+plt.colorbar()
+#plt.gca().set_aspect('equal')
+plt.show()
 
 ### posterior distribution ###
 #a_hat = np.sum(X) + a
