@@ -69,26 +69,12 @@ print(prior)
 alpha_hat_k = np.sum(s_nk, axis=0) + alpha_k
 print(alpha_hat_k)
 
-posterior = np.array
-#print(posterior)
-
-#plt.plot(prior_mu, posterior)
-#plt.xlabel("mu")
-#plt.ylabel("density")
-#plt.title("Beta Distribution")
-#plt.show()
+posterior = np.array([
+    stats.dirichlet.pdf(x=pi[i], alpha=alpha_hat_k) for i in range(len(pi))
+])
+print(posterior)
 
 ### predict distribution ###
-#pred_mu = a_hat / (a_hat + b_hat)
-#print(pred_mu)
-
-#pred = np.array([1-pred_mu, pred_mu])
-#print(pred)
-
-#plt.bar(x=x, height=pred)
-#plt.xlabel("x")
-#plt.ylabel("prob")
-#plt.xticks(ticks=x, labels=x)
-#plt.ylim(0.0, 1.0)
-#plt.title("Bernoulli Distribution")
-#plt.show()
+pi_hat_star_k = alpha_hat_k / np.sum(alpha_hat_k)
+pi_hat_star_k = (np.sum(s_nk, axis=0) + alpha_k) / np.sum(np.sum(s_nk, axis=0) + alpha_k)
+print(pi_hat_star_k)
