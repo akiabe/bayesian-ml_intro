@@ -33,11 +33,11 @@ x_n = np.random.normal(
 )
 print(x_n[:5])
 
-plt.hist(x=x_n, bins=50)
-plt.xlabel("x")
-plt.ylabel("count")
-plt.title("Gaussian Distribution")
-plt.show()
+#plt.hist(x=x_n, bins=50)
+#plt.xlabel("x")
+#plt.ylabel("count")
+#plt.title("Gaussian Distribution")
+#plt.show()
 
 ### prior distribution ###
 m = 0
@@ -57,13 +57,28 @@ prior_mu = stats.norm.pdf(
     loc=m,
     scale=np.sqrt(1 / beta / E_lambda),
 )
-print(prior[:10])
+print(prior_mu[:10])
 
-#plt.plot(lambda_line, prior)
+#plt.plot(mu_line, prior_mu)
 #plt.xlabel("mu")
 #plt.ylabel("density")
 #plt.title("Gaussian Distribution")
 #plt.show()
+
+lambda_line = np.linspace(0, 4 * lambda_truth, num=1000)
+prior_lambda = stats.gamma.pdf(
+    x=lambda_line,
+    a=a,
+    scale=1 / b,
+)
+print(lambda_line[:10])
+print(prior_lambda[:10])
+
+plt.plot(lambda_line, prior_lambda)
+plt.xlabel("lambda")
+plt.ylabel("density")
+plt.title("Gamma Distribution")
+plt.show()
 
 ### posterior distribution ###
 #a_hat = 0.5 * N + a
